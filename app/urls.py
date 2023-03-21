@@ -4,5 +4,7 @@ from app import views
 app_name="app"
 
 urlpatterns = [
-    path('echo/',views.echo_page)
+    #path('echo/',views.echo_page)
+    path('liveblog/',views.liveblog_index),
+    path('liveblog/post/<int:post_id>/',views.post_partial,name="post_partial")
 ]

@@ -16,8 +16,9 @@
             console.log("웹소켓 서버와 접속됨");
         };
         ws.onmessage = (event) => {
-            const message = event.data;
-            console.log("메세지수신:",message);
+            const json_string = event.data;
+            const obj = JSON.parse(json_string)
+            console.log("메세지수신:",obj);
         };
         ws.onclose = (event) => {
             if(event.wasClean) {
