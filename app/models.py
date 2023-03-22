@@ -20,7 +20,7 @@ def post__on_post_save(instance,created,**kwargs):
     
     post_id = instance.pk
     post_partial_url = reverse("app:post_partial",args=[post_id])
-    print(message_type,post_id,post_partial_url)
+
     
     instance.channel_layer_group_send({
         "type":message_type,
@@ -36,7 +36,6 @@ post_save.connect(
 
 def post__on_post_delete(instance,**kwargs):
     post_id = instance.pk
-    
     instance.channel_layer_group_send({
         "type":"liveblog.post.deleted",
         "post_id":post_id,
