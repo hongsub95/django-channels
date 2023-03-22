@@ -23,7 +23,5 @@ application = ProtocolTypeRouter({
     "websocket":URLRouter(
         app_routing.websocket_urlpatterns+
         chat_routing.websocket_urlpatterns
-        
-        
     )
 })
