@@ -10,13 +10,18 @@ class ChatConsumer(JsonWebsocketConsumer):
         self.group_name =''
     
     def connect(self):
-        room_pk = self.scope["url_route"]["kwargs"]["room_pk"]
-        self.group_name = Room.make_chat_group_name(room_pk=room_pk)
-        async_to_sync(self.channel_layer.group_add)(
-            self.group_name,
-            self.channel_name
-        )
-        self.accept()
+        user = self.scope["user"]
+        # user가 인증되지 않았을 경우, 연결 요청을 거부(종료코드가 강제로 1006(비정상 종료)으로 지정)
+        if not user.is_authenticated:
+            self.close()
+        else:
+            room_pk = self.scope["url_route"]["kwargs"]["room_pk"]
+            self.group_name = Room.make_chat_group_name(room_pk=room_pk)
+            async_to_sync(self.channel_layer.group_add)(
+                self.group_name,
+                self.channel_name
+            )
+            self.accept()
         
     def disconnect(self, code):
         if self.group_name:
