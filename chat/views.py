@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpRequest,HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from chat.forms import RoomForm
 from chat.models import Room
@@ -12,12 +13,13 @@ def index(request):
         "room_qs":room_qs
     })
 
+@login_required
 def room_chat(request:HttpRequest,room_pk:str) -> HttpResponse:
     room = get_object_or_404(Room,pk = room_pk)
     return render(request,'chat/room_chat.html',{
         "room":room
     })
-
+@login_required
 def room_new(request):
     if request.method == "POST":
         form = RoomForm(request.POST)
