@@ -22,4 +22,6 @@
 3. 그 채널을 통해 Consumer instance는 채널 레이어(Redis)와 통신
 - 그룹 : 여러 Consumer Instance를 묶는 논리적인 묶음
 
-## Redis, Channels(채널스) 간단한 구현 원리
+## Redis, Channels(채널스) 간단한 구현 원리 (채팅방)
+한 유저가 웹소켓을 통해 메시지를 송신하면 Consumer instance가 그 메시지를 받게 되고 Consumer instance에서 Redis Pub/Sub로 메시지를 보내면
+채팅방에 있는 다른 유저들의 Consumer instance들을 경유해서 웹소켓을 통해 메시지를 전달
