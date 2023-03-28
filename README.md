@@ -27,3 +27,7 @@
 ## Redis, Channels(채널스) 간단한 구현 원리 (채팅방)
 한 유저가 웹소켓을 통해 메시지를 송신하면 Consumer instance가 그 메시지를 받게 되고 Consumer instance에서 Redis Pub/Sub로 메시지를 보내면
 채팅방에 있는 다른 유저들의 Consumer instance들을 경유해서 웹소켓을 통해 메시지를 전달
+
+## Channel layer
+- 주로 Consumer instance에서 메세지를 소비/발행하지만, Django 뷰/모델, celery task를 비롯한 모든 django 영역에서 메세지 발행 가능
+ex. 새로운 모델 인스턴스가 저장되면 접속 유저에게 알림(form), 긴 배치작업 끝나고 접속유저에게 알
